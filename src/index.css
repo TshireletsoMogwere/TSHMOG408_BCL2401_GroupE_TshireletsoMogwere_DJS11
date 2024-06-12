@@ -7,6 +7,10 @@ body {
   padding: 0; /* Add this to reset default body padding */
 }
 
+h2 {
+ color: #ddd;
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -59,12 +63,11 @@ body {
 }
 
 .search-name {
-  position: absolute;
-  top: 80px;
-  left: 260px;
   display: flex;
+  position: absolute;
+  top: 150px;
   width: 100%;
-  max-width: 1000px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 5px;
 }

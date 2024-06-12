@@ -5,6 +5,7 @@ import './index.css'
 import Bottombar from './components/Bottombar.jsx'
 import Home from './components/Home.jsx'
 import SearchBar from './components/Searchbar.jsx'
+import Previews from './components/Previews.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -12,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
     <Bottombar />
     <Home />
+    <Previews />
     <SearchBar />
   </React.StrictMode>,
 )

@@ -7,7 +7,7 @@ function Bottombar() {
          <ul className="nav-list">
          <li className="nav-item">Home</li>
          <li className="nav-item">Library</li>
-         <li className="nav-item">Favourites</li>
+         <li className="nav-item">History</li>
          <li className="nav-item">Login</li>
          </ul>
      </div>
