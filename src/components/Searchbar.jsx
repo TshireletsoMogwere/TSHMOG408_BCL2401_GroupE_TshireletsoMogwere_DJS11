@@ -47,11 +47,6 @@ function SearchBar() {
             <button type="button" className="search-button" onClick={handleSearchClick}>
                 <img src={imageSearch} className="search-button-img" alt="Search" />
             </button>
-            {showInput && (
-                <button type="submit" className="submit-button">
-                    Search
-                </button>
-            )}
         </form>
     );
 }
