@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Modal from "./Modal";
 
 
 function Home() {
@@ -27,6 +28,10 @@ function Home() {
       setSelectedPreview(selectedPreview?.id === preview.id ? null: preview);
     };
 
+    const handleCloseModal = () => {
+      setSelectedPreview(null);
+    };
+
     return (
         <div className="container">
             {error ? (
@@ -43,20 +48,15 @@ function Home() {
                     alt={preview.title} 
                     onClick={() => handleImageClick(preview)} 
                   />
-                  {selectedPreview && selectedPreview.id === preview.id && (
-                    <div className="details">
-                      <h3>ID: {preview.id}</h3>
-                      <p>Description: {preview.description}</p>
-                      <h4>Seasons: {preview.seasons}</h4>
-                      <h4>Genres: {preview.genres}</h4>
-                      <h4>Updated: {preview.updated}</h4>
                  </div>
-                )}
-                </div>
-              ))
-            )}
+                ))
+              )}
+
+        {selectedPreview && (
+        <Modal preview={selectedPreview} onClose={handleCloseModal} />
+        )}
         </div>
     );
-    
-}
+   } 
+
 export default Home
