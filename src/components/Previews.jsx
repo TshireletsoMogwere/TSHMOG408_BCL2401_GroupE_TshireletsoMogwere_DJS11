@@ -16,7 +16,8 @@ function Previews() { //component
         return response.json();
       })
       .then(previews => {  //updates state with fetched data
-        setPreviews(previews)
+        const sortedPreviews = previews.sort((a, b) => a.title.localeCompare(b.title));
+        setPreviews(sortedPreviews);
       })
       .catch(error => {
         setError(error.toString());
