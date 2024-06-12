@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 
 
-function Home() {
-    const [previews, setPreviews] = useState([])
-    const [error, setError] = useState(null)
-    const [selectedPreview, setSelectedPreview] = useState(null);
+function Home() { //component
+    const [previews, setPreviews] = useState([]) //holds list of data fetched from API
+    const [error, setError] = useState(null) //holds error messages occuring during fetch operation
+    const [selectedPreview, setSelectedPreview] = useState(null); //holds currently selected preview to display modal
 
-    useEffect(() => {
+    useEffect(() => { //hoook to handle side effects
       fetch('https://podcast-api.netlify.app')
       .then(response => {
         if (!response.ok) {
@@ -15,7 +15,7 @@ function Home() {
         }
         return response.json();
       })
-      .then(previews => {
+      .then(previews => {  //updates state with fetched data
         setPreviews(previews)
       })
       .catch(error => {
@@ -24,14 +24,15 @@ function Home() {
      [];
     })
 
-    const handleImageClick = (preview) => {
-      setSelectedPreview(selectedPreview?.id === preview.id ? null: preview);
+    const handleImageClick = (preview) => { 
+      setSelectedPreview(selectedPreview?.id === preview.id ? null: preview); //checks if preview is selected
     };
 
-    const handleCloseModal = () => {
-      setSelectedPreview(null);
+    const handleCloseModal = () => { 
+      setSelectedPreview(null); //closes modal
     };
 
+      // renders component
     return (
         <div className="container">
             {error ? (

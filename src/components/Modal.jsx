@@ -8,6 +8,12 @@ const Modal = ({ preview, onClose }) => {
   return (
     <div className="modal" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
+      <img 
+          src={preview.image} 
+          className="modal-image" 
+        alt={preview.title} 
+        onClick={() => handleImageClick(preview)} 
+        />
         <span className="close" onClick={onClose}>&times;</span>
         <h3>ID: {preview.id}</h3>
         <p>Description: {preview.description}</p>
