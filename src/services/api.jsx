@@ -26,3 +26,16 @@ export const fetchPreviews = async () => {
       throw error;
     }
   };
+
+  export const fetchShow = async (id) => {
+    try {
+      const response = await fetch(`${BASE_URL}/id/${id}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  };
