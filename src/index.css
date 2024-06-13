@@ -66,6 +66,35 @@ bottom-bar a {
   text-align: center;
 }
 
+.genre-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.genre-item {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.genre-item h2 {
+  margin: 10px 0;
+}
+
+.genre-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+div {
+  margin-bottom: 20px;
+}
+
 .preview-image {
   max-width: 100%;
   height: auto;

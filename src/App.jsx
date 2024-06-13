@@ -1,10 +1,5 @@
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom"
-import Header from "./components/Header"
 import { Home } from "./pages/Home"
-import { Library } from "./pages/Library"
-import { History } from "./pages/History"
-import { Login } from "./pages/Login"
-import Modal from "./pages/Modal"
 import { Genres } from "./pages/Genres"
 
 
@@ -15,7 +10,6 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-    <Route path="/header" element = {<Header />} />
       <Route path="/home" element = {<Home />} />
       <Route path="/favourites" element = {<Library />} />
       <Route path="/last played" element = {<History />} />
