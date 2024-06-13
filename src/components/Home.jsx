@@ -8,6 +8,7 @@ function Home () {
 
     <div className="genres">
          <ul className="genre-list">
+          
          <li className="genre">All</li>
          <li className="genre">Business</li>
          <li className="genre">Comedy</li>

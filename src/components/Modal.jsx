@@ -12,7 +12,6 @@ const Modal = ({ preview, onClose }) => {
           src={preview.image} 
           className="modal-image" 
         alt={preview.title} 
-        onClick={() => handleImageClick(preview)} 
         />
         <span className="close" onClick={onClose}>&times;</span>
         <h3>ID: {preview.id}</h3>
@@ -20,6 +19,8 @@ const Modal = ({ preview, onClose }) => {
         <h4>Seasons: {preview.seasons}</h4>
         <h4>Genres: {preview.genres}</h4>
         <h4>Updated: {preview.updated}</h4>
+        <h4>{'https://podcast-api.netlify.app/placeholder-audio.mp3'} </h4>
+
       </div>
     </div>
   );

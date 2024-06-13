@@ -25,7 +25,7 @@ function Previews() { //component
      [];
     })
 
-    const handleImageClick = (preview) => { 
+    const handleBlockClick = (preview) => { 
       setSelectedPreview(selectedPreview?.id === preview.id ? null: preview); //checks if preview is selected
     };
 
@@ -42,13 +42,12 @@ function Previews() { //component
                     </div>
             ) : (
               previews.map((preview, index) => (
-                <div className="block" key={index}>
+                <div className="block" key={index} onClick={() => handleBlockClick(preview)}>
                   <h3>{preview.title}</h3>
                   <img 
                     src={preview.image} 
                     className="preview-image" 
-                    alt={preview.title} 
-                    onClick={() => handleImageClick(preview)} 
+                    alt={preview.title}  
                   />
                  </div>
                 ))
