@@ -27,4 +27,9 @@ export const FavoritesProvider = ({ children }) => {
         );
       };
 
+      return (
+        <FavoritesContext.Provider value={{ favorites, addToFavorites, removeFromFavorites }}>
+          {children}
+        </FavoritesContext.Provider>
+      );
 }
