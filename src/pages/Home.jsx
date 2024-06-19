@@ -26,30 +26,25 @@ const Home = () => {
   
 
       // renders component
-    return (
-
+      return (
         <div className="container">
-            {error ? (
-                <div className="error">
-                    <p>{error}</p>
-                    </div>
-            ) : (
-              previews.map((preview, index) => (
-                <div className="block" key={index} onClick={() => handleBlockClick(preview)}>
-                  <h3>{preview.title}</h3>
-                  <img 
-                    src={preview.image} 
-                    className="preview-image" 
-                    alt={preview.title}  
-                  />
-                 </div>
-                ))
-              )}
-
-        {selectedPreview && (
-        <Modal preview={selectedPreview} onClose={handleCloseModal} />
-        )}
+          <div className="sort-buttons">
+            <button onClick={() => sortPreviews('asc')}>Sort A-Z</button>
+            <button onClick={() => sortPreviews('desc')}>Sort Z-A</button>
+          </div>
+          <ul>
+            {previews.map(preview => (
+              <li key={preview.id}>
+                <Link to={`/show/${preview.id}`}>
+                  <h2>{preview.title}</h2>
+                  <img src={preview.image} alt={preview.title} />
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-    );
-   } 
-
+      );
+    };
+    
+    export default Home;
+    
