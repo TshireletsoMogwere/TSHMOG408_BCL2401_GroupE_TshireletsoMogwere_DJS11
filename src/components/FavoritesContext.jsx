@@ -12,6 +12,13 @@ export const FavoritesProvider = ({ children }) => {
         }
       }, []);
 
-
+      useEffect(() => {
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+      }, [favorites]);
+    
+      const addToFavorites = (item) => {
+        const newItem = { ...item, addedAt: new Date().toISOString() }; // Add timestamp
+        setFavorites((prevFavorites) => [...prevFavorites, newItem]);
+      };
 
 }
