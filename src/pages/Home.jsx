@@ -8,30 +8,22 @@ const Home = () => {
 
   
     useEffect(() => { //hoook to handle side effects
-      fetch('https://podcast-api.netlify.app')
-      .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch previews' + response.statusText);
-        }
-        return response.json();
-      })
-      .then(previews => {  //updates state with fetched data
-        const sortedPreviews = previews.sort((a, b) => a.title.localeCompare(b.title));
+      fetchPreviews().then(data => {
+        // Sort previews alphabetically by title
+        const sortedPreviews = data.sort((a, b) => {
+          if (a.title < b.title) return sortOrder === 'asc' ? -1 : 1;
+          if (a.title > b.title) return sortOrder === 'asc' ? 1 : -1;
+          return 0;
+        });
         setPreviews(sortedPreviews);
-      })
-      .catch(error => {
-        setError(error.toString());
       });
-     [];
-    })
+    }, [sortOrder]);
 
-    const handleBlockClick = (preview) => { 
-      setSelectedPreview(selectedPreview?.id === preview.id ? null: preview); //checks if preview is selected
+    const sortPreviews = (order) => {
+      // Toggle sorting order
+      setSortOrder(order);
     };
-
-    const handleCloseModal = () => { 
-      setSelectedPreview(null); //closes modal
-    };
+  
 
       // renders component
     return (
