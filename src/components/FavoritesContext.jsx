@@ -21,4 +21,10 @@ export const FavoritesProvider = ({ children }) => {
         setFavorites((prevFavorites) => [...prevFavorites, newItem]);
       };
 
+      const removeFromFavorites = (episodeId) => {
+        setFavorites((prevFavorites) =>
+          prevFavorites.filter((fav) => fav.episode.id !== episodeId)
+        );
+      };
+
 }
