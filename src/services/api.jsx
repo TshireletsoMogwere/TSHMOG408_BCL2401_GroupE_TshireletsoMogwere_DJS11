@@ -1,42 +1,26 @@
 const BASE_URL = 'https://podcast-api.netlify.app';
 
 export const fetchPreviews = async () => {
-  try {
-    const response = await fetch(BASE_URL);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await fetch(`${BASE_URL}`);
+  return response.json();
 };
 
 export const fetchGenre = async (id) => {
   try {
-    const response = await fetch(`${BASE_URL}/genre/${id}`);
+    const response = await fetch(`https://podcast-api.netlify.app/genre/${id}`);
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error('Failed to fetch genre data');
     }
-    const data = await response.json();
-    return data;
+    const jsonData = await response.json();
+    return jsonData;
   } catch (error) {
-    throw error;
+    console.error('Error fetching genre data:', error);
+    return null; // or handle error state appropriately
   }
 };
 
 export const fetchShow = async (id) => {
-  try {
-    const response = await fetch(`${BASE_URL}/id/${id}`);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await fetch(`${BASE_URL}/id/${id}`);
+  return response.json();
 };
-
 
