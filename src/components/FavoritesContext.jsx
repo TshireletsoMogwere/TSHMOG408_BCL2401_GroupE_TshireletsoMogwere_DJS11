@@ -1,41 +1,28 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+// FavoritesContext.js
+import React, { createContext, useContext, useState } from 'react';
 
 const FavoritesContext = createContext();
+
+export const useFavorites = () => useContext(FavoritesContext);
 
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
 
-  // Load favorites from local storage on initial render
-  useEffect(() => {
-    const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites));
-    }
-  }, []);
-
-  // Save favorites to local storage whenever favorites change
-  useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
-
   const addToFavorites = (item) => {
-    const newItem = { ...item, addedAt: new Date().toISOString() }; // Add timestamp
-    setFavorites((prevFavorites) => [...prevFavorites, newItem]);
+    setFavorites((prevFavorites) => [...prevFavorites, item]);
   };
 
-  const removeFromFavorites = (episodeId) => {
+  const removeFromFavorites = (episodeNumber) => {
     setFavorites((prevFavorites) =>
-      prevFavorites.filter((fav) => fav.episode.id !== episodeId)
+      prevFavorites.filter((fav) => fav.episode.episode !== episodeNumber)
     );
   };
 
   return (
-    <FavoritesContext.Provider value={{ favorites, addToFavorites, removeFromFavorites }}>
+    <FavoritesContext.Provider
+      value={{ favorites, addToFavorites, removeFromFavorites }}
+    >
       {children}
     </FavoritesContext.Provider>
   );
 };
-
-export const useFavorites = () => useContext(FavoritesContext);
-
-
