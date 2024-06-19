@@ -33,3 +33,5 @@ export const FavoritesProvider = ({ children }) => {
         </FavoritesContext.Provider>
       );
 }
+
+export const useFavorites = () => useContext(FavoritesContext);
