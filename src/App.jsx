@@ -1,41 +1,26 @@
-import { BrowserRouter, Link, Routes, Route } from "react-router-dom"
-import { Home } from "./pages/Home"
-import { Genres } from "./pages/Genres"
-import { History } from "./pages/History"
-import { Library } from "./pages/Library"
-import Modal from "./components/Modal"
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { FavoritesProvider } from './components/FavoritesContext';
+import Home from './pages/Home';
+import Show from './components/Show';
+import Header from './components/Header';
+import Favorites from './pages/Library';
 
-
-function App() {
-  
+const App = () => {
   return (
-    <BrowserRouter>
-    <header>
-      <h1>Podcasts</h1>
-    </header>
+    <Router>
+         <FavoritesProvider>
+      <Header />
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/show/:id" element={<Show />} />
+          <Route path="/favorites" element={<Favorites />} />
+        </Routes>
+      </div>
+      </FavoritesProvider>
+    </Router>
+  );
+};
 
-<nav-bar>
-      <nav>
-        <Link to = "/home">Home</Link>
-        <Link to = "/genres">Discover</Link>
-        <Link to = "/favourites">Library</Link>
-        <Link to = "/last played">History</Link>
-      </nav>
-      </nav-bar>
-
-      
-    <Routes>
-      <Route path="/home" element = {<Home />} />
-      <Route path="/favourites" element = {<Library />} />
-      <Route path="/last played" element = {<History />} />
-      <Route path="/modal" element = {<Modal />} />
-      <Route path="/genres" element = {<Genres />} />
-     
-    </Routes>
-    
-    </BrowserRouter>
-  )
-}
-
-
-export default App
+export default App;

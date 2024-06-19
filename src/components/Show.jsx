@@ -1,63 +1,90 @@
-import React, { useEffect, useState } from "react";
-import Modal from "./Modal";
+import React, { useEffect, useState } from 'react';
+import { fetchShow } from '../services/api';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useFavorites } from '../components/FavoritesContext';
 
+const Show = () => {
+  const { id } = useParams();
+  const navigate = useNavigate(); // Hook for navigation
+  const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+  const [show, setShow] = useState(null);
+  const [expandedSeasonId, setExpandedSeasonId] = useState(null);
 
-function Previews() { //component
-    const [previews, setPreviews] = useState([]) //holds list of data fetched from API
-    const [error, setError] = useState(null) //holds error messages occuring during fetch operation
-    const [selectedPreview, setSelectedPreview] = useState(null); //holds currently selected preview to display modal
+  useEffect(() => {
+    fetchShow(id).then((data) => setShow(data));
+  }, [id]);
 
-    useEffect(() => { //hoook to handle side effects
-      fetch('https://podcast-api.netlify.app')
-      .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch previews' + response.statusText);
-        }
-        return response.json();
-      })
-      .then(previews => {  //updates state with fetched data
-        const sortedPreviews = previews.sort((a, b) => a.title.localeCompare(b.title));
-        setPreviews(sortedPreviews);
-      })
-      .catch(error => {
-        setError(error.toString());
-      });
-     [];
-    })
+  if (!show) return <div>Loading...</div>;
 
-    const handleBlockClick = (preview) => { 
-      setSelectedPreview(selectedPreview?.id === preview.id ? null: preview); //checks if preview is selected
-    };
-
-    const handleCloseModal = () => { 
-      setSelectedPreview(null); //closes modal
-    };
-
-      // renders component
-    return (
-        <div className="container">
-            {error ? (
-                <div className="error">
-                    <p>{error}</p>
-                    </div>
-            ) : (
-              previews.map((preview, index) => (
-                <div className="block" key={index} onClick={() => handleBlockClick(preview)}>
-                  <h3>{preview.title}</h3>
-                  <img 
-                    src={preview.image} 
-                    className="preview-image" 
-                    alt={preview.title}  
-                  />
-                 </div>
-                ))
-              )}
-
-        {selectedPreview && (
-        <Modal preview={selectedPreview} onClose={handleCloseModal} />
-        )}
-        </div>
+  const handleSeasonClick = (seasonId) => {
+    setExpandedSeasonId((prevExpandedSeasonId) =>
+      prevExpandedSeasonId === seasonId ? null : seasonId
     );
-   } 
+  };
 
-export default Previews
+  const handleAddToFavorites = (episode, show, season) => {
+    const episodeExists = favorites.some((fav) => fav.episode.episode === episode.episode);
+    if (!episodeExists) {
+      addToFavorites({ episode, show, season });
+    }
+  };
+
+  const handleRemoveFromFavorites = (episodeNumber) => {
+    removeFromFavorites(episodeNumber);
+  };
+
+  const isFavorite = (episodeNumber) => {
+    return favorites.some((e) => e.episode.episode === episodeNumber);
+  };
+
+  return (
+    <div className="show-container">
+      <button onClick={() => navigate('/')} className="back-to-list-button">
+        Back to Home
+      </button>
+      <h1>{show.title}</h1>
+      <p>{show.description}</p>
+      <h3>Number of Seasons: {show.seasons.length}</h3>
+      <img src={show.image} alt={show.title} className="show-image" />
+      <p>Genre ID: {show.genreId}</p>
+      <h3>Updated: {show.updated}</h3>
+      <ul className="seasons-list">
+        {show.seasons.map((season) => (
+          <li key={season.season} className="season-item">
+            <button onClick={() => handleSeasonClick(season.season)} className="season-button">
+              {season.title} ({season.episodes.length})
+            </button>
+            {expandedSeasonId === season.season && (
+              <ul className="episode-list">
+                {season.episodes.map((episode) => (
+                  <li key={`${season.season}-${episode.episode}`} className="episode-item">
+                    <p>Episode Number: {episode.episode}</p>
+                    <p>Title: {episode.title}</p>
+                    <audio controls src={episode.file} />
+                    {isFavorite(episode.episode) ? (
+                      <button
+                        onClick={() => handleRemoveFromFavorites(episode.episode)}
+                        className="remove-from-favorites-button"
+                      >
+                        Remove from Favorites
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleAddToFavorites(episode, show, season)}
+                        className="add-to-favorites-button"
+                      >
+                        Add to Favorites
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Show;
