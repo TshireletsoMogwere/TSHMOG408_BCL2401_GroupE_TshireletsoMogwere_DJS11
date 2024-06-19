@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Modal from "../components/Modal";
+import React, { useEffect, useState } from 'react';
+import { fetchPreviews } from '../services/api';
+import { Link } from 'react-router-dom';
 
-export function Home() {
+const Home = () => {
+  const [previews, setPreviews] = useState([]);
+  const [sortOrder, setSortOrder] = useState('asc'); // State to manage sorting order
 
-    const [previews, setPreviews] = useState([]) //holds list of data fetched from API
-    const [error, setError] = useState(null) //holds error messages occuring during fetch operation
-    const [selectedPreview, setSelectedPreview] = useState(null); //holds currently selected preview to display modal
-
+  
     useEffect(() => { //hoook to handle side effects
       fetch('https://podcast-api.netlify.app')
       .then(response => {
