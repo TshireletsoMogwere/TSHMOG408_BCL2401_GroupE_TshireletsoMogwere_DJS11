@@ -31,7 +31,9 @@ const Home = () => {
           <div className="sort-buttons">
             <button onClick={() => sortPreviews('asc')}>Sort A-Z</button>
             <button onClick={() => sortPreviews('desc')}>Sort Z-A</button>
+            <button onClick={() => filterByGenre('genre')}>Genres</button>
           </div>
+
           <ul>
             {previews.map(preview => (
               <li key={preview.id}>
