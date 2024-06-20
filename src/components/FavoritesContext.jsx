@@ -1,12 +1,18 @@
-// FavoritesContext.js
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const FavoritesContext = createContext();
 
 export const useFavorites = () => useContext(FavoritesContext);
 
 export const FavoritesProvider = ({ children }) => {
-  const [favorites, setFavorites] = useState([]);
+  // Load favorites from local storage on component mount
+  const initialFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  const [favorites, setFavorites] = useState(initialFavorites);
+
+  // Save favorites to local storage whenever favorites state changes
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   const addToFavorites = (item) => {
     setFavorites((prevFavorites) => [...prevFavorites, item]);

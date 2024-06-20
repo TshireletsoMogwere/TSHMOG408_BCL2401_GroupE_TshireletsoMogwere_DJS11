@@ -7,7 +7,7 @@ export const fetchPreviews = async () => {
 
 export const fetchGenre = async (id) => {
   try {
-    const response = await fetch(`https://podcast-api.netlify.app/genre/${id}`);
+    const response = await fetch(`${BASE_URL}/genre/${id}`);
     if (!response.ok) {
       throw new Error('Failed to fetch genre data');
     }

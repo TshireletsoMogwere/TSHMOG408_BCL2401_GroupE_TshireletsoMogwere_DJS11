@@ -2,19 +2,16 @@ import React, { useState } from 'react';
 import { useFavorites } from '../components/FavoritesContext';
 
 const Favorites = () => {
+        
   const { favorites, removeFromFavorites } = useFavorites();
   const [sortOrder, setSortOrder] = useState('asc'); // State to track sorting order (A-Z or Z-A)
   const [sortCriteria, setSortCriteria] = useState('title'); // State to track sorting criteria (title or date)
-
+ 
   const sortFavorites = (favorites, criteria, order) => {
     return [...favorites].sort((a, b) => {
       if (criteria === 'title') {
         if (a.episode.title < b.episode.title) return order === 'asc' ? -1 : 1;
         if (a.episode.title > b.episode.title) return order === 'asc' ? 1 : -1;
-        return 0;
-      } else if (criteria === 'date') {
-        if (new Date(a.addedAt) < new Date(b.addedAt)) return order === 'asc' ? -1 : 1;
-        if (new Date(a.addedAt) > new Date(b.addedAt)) return order === 'asc' ? 1 : -1;
         return 0;
       }
     });
@@ -31,6 +28,9 @@ const Favorites = () => {
     }
   };
 
+  const handleGoBack = () => {
+    window.history.back(); // Use window.history to navigate back
+  };
   const sortedFavorites = sortFavorites(favorites, sortCriteria, sortOrder);
 
   return (
@@ -41,6 +41,7 @@ const Favorites = () => {
       ) : (
         <>
           <div className="sort-buttons">
+                  <button onClick={handleGoBack}>Go Back</button>
             <button onClick={() => handleSortChange('title')} className="sort-button">
               Sort by Title ({sortOrder === 'asc' && sortCriteria === 'title' ? 'A-Z' : 'Z-A'})
             </button>
@@ -55,7 +56,8 @@ const Favorites = () => {
                 <h3>{season.title}</h3>
                 <p>Episode Number: {episode.episode}</p>
                 <p>Title: {episode.title}</p>
-                <p>Added on: {new Date(addedAt).toLocaleString()}</p> {/* Display added date and time */}
+                <p>Added at: {new Date(addedAt).toLocaleString()}</p>
+            {/* Display added date and time */}
                 <audio controls src={episode.file} />
                 <button
                   onClick={() => removeFromFavorites(episode.episode)}
