@@ -6,6 +6,7 @@ import Show from './components/Show';
 import Header from './components/Header';
 import Favorites from './pages/Library';
 
+
 const App = () => {
   return (
     <Router>
@@ -20,6 +21,7 @@ const App = () => {
       </div>
       </FavoritesProvider>
     </Router>
+
   );
 };
 

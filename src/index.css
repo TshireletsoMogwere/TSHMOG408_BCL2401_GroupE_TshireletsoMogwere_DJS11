@@ -4,6 +4,9 @@ body {
   font-family: Arial, sans-serif;
   background-color: rgba(32, 31, 30, 0.812);
   color: #fff;
+  background-image: url(./assets/retro-microphone-notebook-computer-live-webcast-air-concept.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 /* home style */
@@ -20,10 +23,12 @@ body {
   margin-bottom: 15px;
   bottom: 550px;
   left: 0;
+  filter:inherit;
+  filter: contrast(-1400);
 }
 
 .header {
-  background-color: #242121;
+  background-color: #040d2487;
   padding: 20px 0;
   text-align: center;
   height: 94px;
@@ -37,7 +42,7 @@ body {
 
 .nav-link {
   font-weight: bolder;
-  color: #767272;
+  color: #fffafaf5;
   text-decoration: none;
   font-size: 18px;
   padding: 10px 20px;
@@ -73,28 +78,34 @@ body {
 
 .select-genre {
   position: absolute;
-  top: 30%; /* Adjusted for better responsiveness */
-  left: 55%; /* Adjusted for better responsiveness */
+  top: 32%;
+  left: 50%;
   transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f0f0f0;
   transition: background-color 0.3s;
   color: #534f4f;
+  padding: 10px 20px; /* Adjust padding as needed */
+  max-width: 300px; /* Set a maximum width if necessary */
 }
+
 
 .search-input {
   position: absolute;
-  top: 30%; /* Adjusted for better responsiveness */
-  left: 43%; /* Adjusted for better responsiveness */
+  top: 38%; 
+  left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f0f0f0;
   transition: background-color 0.3s;
-  color: #534f4f;
+  color: #181717;
+  height: 25px;
 }
 
 h1 {
@@ -102,14 +113,14 @@ h1 {
 }
 
 .small-image {
-  width: 250px; /* Adjust width as needed */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: cover; /* Ensure the image fits well within the specified width */
+  width: 250px; 
+  height: auto; 
+  object-fit: cover; 
 }
 
 ul {
   list-style: none;
-  padding: 0;
+  padding: 50px;
   margin: 50px;
   display: flex;
   flex-wrap: wrap;
@@ -145,15 +156,49 @@ a {
 h2 {
   font-size: 1.5em;
   margin: 0;
-  color: rgb(198, 191, 178);
+  color: white;
   margin-bottom: 10px;
 }
+
+.previous-home {
+  position: absolute;
+  top: 32%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  color: black;
+  padding: 10px 20px; 
+  max-width: 300px; 
+}
+
+.next-home {
+  position: absolute;
+  top: 32%;
+  right: 10%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  color: black;
+  padding: 10px 20px; 
+  max-width: 300px; 
+}
+
+.details-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #282828;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
 
 /* show style */
 .show-container {
   padding: 20px;
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Column layout for overall container */
+  display: flex; 
+  flex-direction: column; 
   position: relative;
 }
 
@@ -175,37 +220,38 @@ h2 {
 }
 
 .description {
-  max-width: 60%; /* Ensure description doesn't take too much width */
-  margin-left: 800px; /* Space between image and description */
+  max-width: 60%; 
+  margin-left: 800px; 
   margin-top: -150px;
+  font-weight: bold;
 }
 
 .show-image {
-  width: 200px; /* Adjust as needed */
+  width: 200px; 
   height: auto;
-  margin-top: -250px; /* Move the image 20px up */
+  margin-top: -250px; 
 }
-
 .season-image {
-  width: 200px; /* Adjust as needed */
+  width: 200px; 
   height: auto;
-  margin-top: 110px; /* Move the image 20px up */
+  margin-top: 110px;
 }
 
 .season-button {
   position: absolute;
   display: grid;
-  border: 1px solid #121212;
   border-radius: 2%;
-  background-color: #121212;
+  background-color: #2b38a0;
   color: white;
   font-weight: bolder;
+  width: 150px;
   height: 40px;
   margin-bottom: 5px;
   margin-top: 40px;
   padding: 5px 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+
 }
 
 .seasons-list {
@@ -262,7 +308,7 @@ h2 {
 }
 
 .favorite-item {
-  background-color: #242121;
+  background-color: #040d2487;
   padding: 10px;
   border-radius: 8px;
   width: 300px;
@@ -374,13 +420,17 @@ h2 {
     width: 150px;
   }
 
-  .select-genre,
-  .search-input {
+  .select-genre {
     top: 30%; 
     left: 50%;
     width: 80%;
   }
 
+  .search-input{
+    top: 36%; 
+    left: 50%;
+    width: 80%;
+  }
   .description {
     margin-left: 20px;
     max-width: 100%;

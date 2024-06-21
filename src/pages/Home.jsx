@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { fetchPreviews, fetchGenre } from '../services/api';
 import { Link } from 'react-router-dom';
+import { fetchPreviews, fetchGenre } from '../services/api';
 import GenreComponent from '../components/GenreComponent';
 import { genreMapping } from '../components/Genre';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const Home = ({ handleSearch }) => {
   const [previews, setPreviews] = useState([]);
@@ -12,6 +14,8 @@ const Home = ({ handleSearch }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState(null);
   const [searchBar, setSearchBar] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const previewsPerPage = 12;
 
   useEffect(() => {
     fetchPreviews().then(data => {
@@ -105,6 +109,12 @@ const Home = ({ handleSearch }) => {
     search();
   }, [searchBar]);
 
+  const indexOfLastPreview = currentPage * previewsPerPage;
+  const indexOfFirstPreview = indexOfLastPreview - previewsPerPage;
+  const currentPreviews = previews.slice(indexOfFirstPreview, indexOfLastPreview);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -143,17 +153,29 @@ const Home = ({ handleSearch }) => {
         </div>
       )}
 
-      <ul>
-        {previews.map(preview => (
-          <li key={preview.id}>
-            <Link to={`/show/${preview.id}`}>
-              <h2>{preview.title}</h2>
-              <h2>{preview.genres}</h2>
-              <img src={preview.image} alt={preview.title} className="small-image" />
+      <ul className="preview-list">
+        {currentPreviews.map(preview => (
+          <li key={preview.id} className="preview-item">
+            <h2>{preview.title}</h2>
+            <h2>{preview.genres}</h2>
+            
+            <img src={preview.image} alt={preview.title} className="small-image" />
+            
+            <Link to={`/show/${preview.id}`} className="details-button">
+              Click to see details
             </Link>
           </li>
         ))}
       </ul>
+
+      <div className="pagination">
+        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} className="pagination-button previous-home">
+          <FontAwesomeIcon icon={faArrowLeft} /> Previous
+        </button>
+        <button onClick={() => paginate(currentPage + 1)} disabled={currentPreviews.length < previewsPerPage} className="pagination-button next-home">
+          Next <FontAwesomeIcon icon={faArrowRight} />
+        </button>
+      </div>
     </div>
   );
 };
