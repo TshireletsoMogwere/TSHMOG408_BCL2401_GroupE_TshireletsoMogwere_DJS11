@@ -1,47 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFavorites } from '../components/FavoritesContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { MdPadding } from 'react-icons/md';
 
 const Favorites = () => {
-        
   const { favorites, removeFromFavorites } = useFavorites();
-  const [sortOrder, setSortOrder] = useState('asc'); // State to track sorting order (A-Z or Z-A)
-  const [sortCriteria, setSortCriteria] = useState('title'); // State to track sorting criteria (title or date)
- 
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortCriteria, setSortCriteria] = useState('title');
+  const [currentPage, setCurrentPage] = useState(1);
+  const favoritesPerPage = 6;
+
   const sortFavorites = (favorites, criteria, order) => {
     return [...favorites].sort((a, b) => {
       if (criteria === 'title') {
-        if (a.episode.title < b.episode.title) return order === 'asc' ? -1 : 1;
-        if (a.episode.title > b.episode.title) return order === 'asc' ? 1 : -1;
-        return 0;
+        return order === 'asc' ? a.episode.title.localeCompare(b.episode.title) : b.episode.title.localeCompare(a.episode.title);
+      } else if (criteria === 'date') {
+        return order === 'asc' ? a.addedAt - b.addedAt : b.addedAt - a.addedAt;
       }
+      return 0;
     });
   };
 
   const handleSortChange = (criteria) => {
     if (sortCriteria === criteria) {
-      // Toggle sort order if the same criteria is clicked again
       setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
     } else {
-      // Set new criteria and reset to ascending order
       setSortCriteria(criteria);
       setSortOrder('asc');
     }
+    setCurrentPage(1); // Reset to first page when sorting criteria changes
   };
 
   const handleGoBack = () => {
-    window.history.back(); // Use window.history to navigate back
+    window.history.back();
   };
+
+  const paginate = (favorites) => {
+    const startIndex = (currentPage - 1) * favoritesPerPage;
+    return favorites.slice(startIndex, startIndex + favoritesPerPage);
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
+
   const sortedFavorites = sortFavorites(favorites, sortCriteria, sortOrder);
+  const paginatedFavorites = paginate(sortedFavorites);
 
   return (
     <div className="favorites-container">
-      <h1>Favorites</h1>
+      <h1>Favourites</h1>
       {favorites.length === 0 ? (
         <p>No favorite episodes added.</p>
       ) : (
         <>
           <div className="sort-buttons">
-                  <button onClick={handleGoBack}>Go Back</button>
+            <button onClick={handleGoBack}>
+              <FontAwesomeIcon icon={faArrowLeft} style={{ marginRight: '5px' }} />
+              Go back
+            </button>
             <button onClick={() => handleSortChange('title')} className="sort-button">
               Sort by Title ({sortOrder === 'asc' && sortCriteria === 'title' ? 'A-Z' : 'Z-A'})
             </button>
@@ -50,17 +68,16 @@ const Favorites = () => {
             </button>
           </div>
           <ul className="favorites-list">
-            {sortedFavorites.map(({ episode, show, season, addedAt }) => (
-              <li key={episode.episode} className="favorite-item">
-                <h2>{show.title}</h2>
-                <h3>{season.title}</h3>
-                <p>Episode Number: {episode.episode}</p>
-                <p>Title: {episode.title}</p>
+            {paginatedFavorites.map(({ episode, show, season, addedAt }) => (
+              <li key={`${show?.title}-${episode.episode}`} className="favorite-item">
+                <h2>{show?.title}</h2>
+                <h3>{season?.title}</h3>
+                <p>Episode Number: {episode?.episode}</p>
+                <p>Title: {episode?.title}</p>
                 <p>Added at: {new Date(addedAt).toLocaleString()}</p>
-            {/* Display added date and time */}
-                <audio controls src={episode.file} />
+                <audio controls src={episode?.file} />
                 <button
-                  onClick={() => removeFromFavorites(episode.episode)}
+                  onClick={() => removeFromFavorites(episode?.episode)}
                   className="remove-from-favorites-button"
                 >
                   Remove from Favorites
@@ -68,6 +85,29 @@ const Favorites = () => {
               </li>
             ))}
           </ul>
+
+          <div className="pagination">
+            {favorites.length > favoritesPerPage && (
+              <>
+               <button
+         onClick={() => setCurrentPage(currentPage - 1)}
+         disabled={currentPage === 1}
+         className="previous"
+>
+  <FontAwesomeIcon icon={faArrowLeft} style={{ marginRight: '5px'}} />
+  Previous
+</button>
+
+                <button
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                  disabled={currentPage === Math.ceil(favorites.length / favoritesPerPage)} className='next'
+                >
+                    <FontAwesomeIcon icon={faArrowRight} style={{ marginRight: '5px' }} />
+                  Next
+                </button>
+              </>
+            )}
+          </div>
         </>
       )}
     </div>

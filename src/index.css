@@ -29,16 +29,15 @@ body {
   height: 94px;
 }
 
-
 .nav {
   display: flex;
   justify-content: center;
- margin-top: 30px;
+  margin-top: 30px;
 }
 
 .nav-link {
   font-weight: bolder;
-  color: #534f4f;
+  color: #767272;
   text-decoration: none;
   font-size: 18px;
   padding: 10px 20px;
@@ -50,18 +49,15 @@ body {
   border-radius: 5px;
 }
 
-
 .sort-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
-  
-  
 }
 
 .sort-buttons button {
-  color: #555151;
+  color: #050505;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
@@ -77,9 +73,9 @@ body {
 
 .select-genre {
   position: absolute;
-  top: 30%; /* Positions the top edge of the element at 50% from the top of the nearest positioned ancestor */
-  left: 55%; /* Positions the left edge of the element at 50% from the left of the nearest positioned ancestor */
-  transform: translate(-50%, -50%); /* Translates the element back by 50% of its own width and height to center it precisely */
+  top: 30%; /* Adjusted for better responsiveness */
+  left: 55%; /* Adjusted for better responsiveness */
+  transform: translate(-50%, -50%);
   cursor: pointer;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -90,9 +86,9 @@ body {
 
 .search-input {
   position: absolute;
-  top: 30%; /* Positions the top edge of the element at 50% from the top of the nearest positioned ancestor */
-  left: 43%; /* Positions the left edge of the element at 50% from the left of the nearest positioned ancestor */
-  transform: translate(-50%, -50%); /* Translates the element back by 50% of its own width and height to center it precisely */
+  top: 30%; /* Adjusted for better responsiveness */
+  left: 43%; /* Adjusted for better responsiveness */
+  transform: translate(-50%, -50%);
   cursor: pointer;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -110,7 +106,6 @@ h1 {
   height: auto; /* Maintain aspect ratio */
   object-fit: cover; /* Ensure the image fits well within the specified width */
 }
-
 
 ul {
   list-style: none;
@@ -139,7 +134,6 @@ li:hover {
   box-shadow: 0 4px 8px rgba(24, 24, 24, 0.1);
 }
 
-
 a {
   text-decoration: none;
   color: inherit;
@@ -167,14 +161,13 @@ h2 {
   width: 100px;
   align-self: center;
   height: 35px;
- }
+}
 
-.show-title{
-  position:absolute;
+.show-title {
+  position: absolute;
   margin: 80px;
   margin-left: 5px;
 }
-
 
 .season-number {
   margin: 100px;
@@ -193,9 +186,15 @@ h2 {
   margin-top: -250px; /* Move the image 20px up */
 }
 
+.season-image {
+  width: 200px; /* Adjust as needed */
+  height: auto;
+  margin-top: 110px; /* Move the image 20px up */
+}
+
 .season-button {
   position: absolute;
-  display:grid;
+  display: grid;
   border: 1px solid #121212;
   border-radius: 2%;
   background-color: #121212;
@@ -232,4 +231,170 @@ h2 {
   margin-top: 10px;
   cursor: pointer;
   width: 100px;
+}
+
+/* library style */
+
+.favorites-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.favorites-title {
+  font-size: 2.5em;
+  margin: 20px 0;
+  color: #fff;
+}
+
+.favorites-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.favorite-item {
+  background-color: #242121;
+  padding: 10px;
+  border-radius: 8px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.favorite-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.favorite-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.favorite-title {
+  font-size: 1.5em;
+  margin: 10px 0;
+  color: #fff;
+}
+
+.favorite-episode {
+  font-size: 1em;
+  color: #ddd;
+  margin-bottom: 15px;
+}
+
+.remove-favorite-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #534f4f;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.remove-favorite-button:hover {
+  background-color: #3a3a3a;
+}
+
+
+.previous {
+  background-color: white;
+  color: black;
+  background:none;
+}
+
+.next {
+  background-color: white;
+  color: black;
+  background: none;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .favorites-title {
+    font-size: 2em;
+  }
+
+  .favorite-item {
+    width: 90%;
+  }
+}
+
+
+/* Media Queries */
+@media (max-width: 1200px) {
+  
+  .description {
+    margin-left: 600px;
+  }
+}
+
+@media (max-width: 992px) {
+  .description {
+    margin-left: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .description {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .season-number {
+    margin-left: 200px;
+    margin-bottom: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .show-title {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .top-left-image {
+    width: 150px;
+  }
+
+  .select-genre,
+  .search-input {
+    top: 30%; 
+    left: 50%;
+    width: 80%;
+  }
+
+  .description {
+    margin-left: 20px;
+    max-width: 100%;
+  }
+
+  .show-image {
+    margin-top: 20px;
+  }
+  .season-image {
+    margin-top: 90px;
+  }
+
+  .back-to-list-button {
+    width: 80px;
+    height: 30px;
+  }
 }
