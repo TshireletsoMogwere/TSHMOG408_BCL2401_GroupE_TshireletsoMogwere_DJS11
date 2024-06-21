@@ -371,6 +371,40 @@ h2 {
   margin-left: 10px;
 }
 
+.genre-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 80px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.genre-title {
+  margin-top: 100px;
+}
+.genre-item h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.genre-item p {
+  margin-bottom: 10px;
+}
+
+.genre-item button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
 @media (max-width: 768px) {
   .favorites-title {
     font-size: 2em;

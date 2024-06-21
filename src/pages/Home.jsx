@@ -145,7 +145,7 @@ const Home = ({ handleSearch }) => {
 
       {selectedGenre && (
         <div className="genre-details">
-          <h2>Genre Details</h2>
+          <h2 className='genre-title'>Genre Details</h2>
           {genreDetails && <GenreComponent genre={genreDetails} />}
           <button onClick={handleShowGenreDetails}>
             {genreDetails ? 'Hide Genre Details' : 'Show Genre Details'}
